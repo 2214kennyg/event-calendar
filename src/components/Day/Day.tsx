@@ -11,7 +11,7 @@ export const Day = ({ dayNum }: any) => {
         setopenModal(false);
     };
 
-    return (
+    return dayNum !== 0 ? (
         <>
             <>
                 <div className={styles.card} onClick={openModalView}>
@@ -20,5 +20,9 @@ export const Day = ({ dayNum }: any) => {
             </>
             {openModal ? <DayModal onChange={closeModalView} /> : <></>}
         </>
+    ) : (
+        <div className={styles.card}>
+            <p></p>
+        </div>
     );
 };
