@@ -2,7 +2,7 @@ import styles from "./Day.module.scss";
 import { useState } from "react";
 import DayModal from "../DayModal/DayModal";
 
-export const Day = ({ dayNum }: any) => {
+export const Day = ({ dayNum, currDate }: any) => {
     const [openModal, setopenModal] = useState(false);
     const openModalView = () => {
         setopenModal(true);
@@ -18,7 +18,11 @@ export const Day = ({ dayNum }: any) => {
                     {dayNum}
                 </div>
             </>
-            {openModal ? <DayModal onChange={closeModalView} /> : <></>}
+            {openModal ? (
+                <DayModal onChange={closeModalView} currDate={currDate} />
+            ) : (
+                <></>
+            )}
         </>
     ) : (
         <div className={styles.card}>

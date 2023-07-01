@@ -10,8 +10,6 @@ const Month = () => {
     const [monthInt, setMonthInt] = useState(getMonthName.monthInt + 1);
     const [monthString, setMonthString] = useState(getMonthName.monthString);
     const [year, setYear] = useState(getMonthName.currYear);
-    // const [firstDay, setfirstDay] = useState(getMonthName.firstDayString);
-
     const [blankDayArr, setBlankDayArr] = useState([
         ...Array(getMonthName.firstDayNum - 1).fill(-1),
     ]);
@@ -36,14 +34,19 @@ const Month = () => {
     const setters = () => {
         setMonthString(getMonthName.monthString);
         setYear(getMonthName.currYear);
-        // setfirstDay(getMonthName.firstDayString);
-        setBlankDayArr([...Array(getMonthName.firstDayNum).fill(-1)]);
+        setBlankDayArr([...Array(getMonthName.firstDayNum - 1).fill(-1)]);
+        const daysInMonthArr = [...Array(getMonthName.daysInMonth).keys()];
+        const firstDayIndex = daysOfWeek.findIndex(
+            (day) => day === getMonthName.firstDayString
+        );
+        const shiftedDays = daysInMonthArr.map(
+            (day) => (day + firstDayIndex) % 7
+        );
         setCombinedDays([
-            ...Array(getMonthName.firstDayNum).fill(-1),
-            ...Array(getMonthName.daysInMonth).keys(),
+            ...Array(getMonthName.firstDayNum - 1).fill(-1),
+            ...shiftedDays,
         ]);
-        setDayArr([...Array(getMonthName.daysInMonth).keys()]);
-        for (let i = 0; i < Math.ceil(combinedDays.length / 7); i++) {}
+        setDayArr(daysInMonthArr);
     };
 
     const onPrevMonth = () => {
@@ -118,7 +121,17 @@ const Month = () => {
                                             className={styles.table__cell}
                                             key={n + monthString + year}
                                         >
-                                            <Day dayNum={dayNum} key={n} />
+                                            <Day
+                                                dayNum={dayNum}
+                                                key={n}
+                                                currDate={
+                                                    new Date(
+                                                        year,
+                                                        monthInt - 2,
+                                                        dayNum + 1
+                                                    )
+                                                }
+                                            />
                                         </td>
                                     );
                                 })}

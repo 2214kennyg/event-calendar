@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import DayForm from "../DayForm/DayForm";
 
-const DayModal = ({ onChange }: any) => {
+const DayModal = ({ onChange, currDate }: any) => {
     const closeModalView = () => {
         onChange();
     };
@@ -11,7 +11,7 @@ const DayModal = ({ onChange }: any) => {
         <div className={styles.modalContainer}>
             <div className={styles.outsideModal} onClick={closeModalView}></div>
             <div className={styles.card}>
-                <DayForm />
+                <DayForm currDate={currDate} />
                 <div onClick={closeModalView} className={styles.close}>
                     <FontAwesomeIcon
                         icon={faXmark}

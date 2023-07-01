@@ -37,6 +37,13 @@
 -   Fixed display of days not in the current month (previously showed as 0)
 -   Placeholder content for the form in the modal
 
+### 01/07/2023
+
+-   Added functionality to pass information through backend
+-   Created form component to use in the day modal
+-   Added styling to form
+-   Fixed bug where days would inaccurately display if first day is sunday
+
 ## Further details, related projects
 
 -   The backend data is stored using Spring, https://github.com/2214kennyg/event-calendar-spring
