@@ -3,10 +3,23 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { formatDate } from "../../services/helper";
 import styles from "./EventModal.module.scss";
 import Countdown from "../Countdown/Countdown";
+import { deleteById } from "../../services/services";
+import { useState } from "react";
 
 const EventModal = ({ event, onChange }: any) => {
+    const [error, setError] = useState({ isPresent: false, message: "" });
+
     const closeEventModal = () => {
         onChange();
+    };
+
+    const deleteEvent = async () => {
+        try {
+            setError({ isPresent: false, message: "" });
+            deleteById(event.id);
+        } catch (e: any) {
+            setError({ isPresent: true, message: e.message });
+        }
     };
 
     return (
@@ -17,17 +30,19 @@ const EventModal = ({ event, onChange }: any) => {
             ></div>
             <div className={styles.card}>
                 <div className={styles.card__info}>
-                    <div>Event: {event.eventName}</div>
-                    <div>
-                        Start: {formatDate(event.startDate.split("T")[0])}
-                    </div>
-                    <div>End: {formatDate(event.endDate.split("T")[0])}</div>
-                    <div>Location: {event.location}</div>
-                    <div>Label: {event.label}</div>
-                    <div>
+                    <p>Event: {event.eventName}</p>
+                    <p>Start: {formatDate(event.startDate.split("T")[0])}</p>
+                    <p>End: {formatDate(event.endDate.split("T")[0])}</p>
+                    <p>Location: {event.location}</p>
+                    <p>Label: {event.label}</p>
+                    <p>
                         Time Left:{" "}
                         <Countdown targetDate={new Date(event.endDate)} />
-                    </div>
+                    </p>
+                    <button onClick={deleteEvent}>Delete</button>
+                    {error.isPresent && (
+                        <p className={styles.error}>{error.message}</p>
+                    )}
                 </div>
                 <FontAwesomeIcon
                     icon={faXmark}
