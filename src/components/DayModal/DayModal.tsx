@@ -3,21 +3,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import DayForm from "../DayForm/DayForm";
 
-const DayModal = ({ onChange, currDate }: any) => {
-    const closeModalView = () => {
+const DayModal = ({ onChange }: any) => {
+    const closeDayModal = () => {
         onChange();
     };
+
     return (
         <div className={styles.modalContainer}>
-            <div className={styles.outsideModal} onClick={closeModalView}></div>
+            <div className={styles.outsideModal} onClick={closeDayModal}></div>
             <div className={styles.card}>
-                <DayForm currDate={currDate} />
-                <div onClick={closeModalView} className={styles.close}>
-                    <FontAwesomeIcon
-                        icon={faXmark}
-                        style={{ color: "black" }}
-                    />
-                </div>
+                <DayForm />
+                <FontAwesomeIcon
+                    icon={faXmark}
+                    style={{ color: "black" }}
+                    onClick={closeDayModal}
+                />
             </div>
         </div>
     );

@@ -3,7 +3,7 @@ import { validateDates } from "../../services/helper";
 import { addNewEvent } from "../../services/services";
 import styles from "./DayForm.module.scss";
 
-const DayForm = ({ currDate }: any) => {
+const DayForm = () => {
     const initialState = {
         eventName: "",
         startDate: "",
@@ -19,8 +19,7 @@ const DayForm = ({ currDate }: any) => {
         setFormData({ ...formData, [id]: value });
     };
 
-    const onSubmit = async (e: any) => {
-        e.preventDefault();
+    const onSubmit = async () => {
         try {
             validateDates(formData.startDate, formData.endDate);
             setError({ isPresent: false, message: "" });
@@ -29,6 +28,7 @@ const DayForm = ({ currDate }: any) => {
             setError({ isPresent: true, message: e.message });
         }
     };
+
     return (
         <div>
             <form className={styles.form} onSubmit={onSubmit}>
@@ -45,7 +45,7 @@ const DayForm = ({ currDate }: any) => {
                     type="date"
                     id="startDate"
                     name="startDate"
-                    min={currDate.toISOString().split("T")[0]}
+                    min={new Date().toISOString().split("T")[0]}
                     onChange={formChange}
                     required
                 />
@@ -54,7 +54,7 @@ const DayForm = ({ currDate }: any) => {
                     type="date"
                     id="endDate"
                     name="endDate"
-                    min={currDate.toISOString().split("T")[0]}
+                    min={new Date().toISOString().split("T")[0]}
                     onChange={formChange}
                     required
                 />

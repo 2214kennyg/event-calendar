@@ -12,21 +12,24 @@
 
 -   Displays the current month and year, and can navigate between consecutive months
 -   Opens a modal, to allow adding events to specific days
--   Shows events and a countdown to when the event occurs
+-   Shows events for particular days, with various information displayed in modal
+-   Modal displays countdown to when the event ends
 
 ## Known issues
 
--   Modal is currently placeholder
--   Events feature isn't implemented yet
+-   Adding an event to a day messes with the dimensions, can account for one event, but can't account for multiple events in a day
+-   Countdown timer loads slowly
+-   Events across multiple days only display on the start date
 
 ---
 
 ## Future Goals
 
--   Currently the opened modal is empty, intended to include a form that can add events to specific days
--   Need to also show events for specific day, as a modal that includes a countdown timer
 -   Highlight the current day when viewing the calendar
 -   Skip to a specific date, instead of scrolling through one by one
+-   Add button to filter events by label and/or location
+-   Autofill start date in event form for current date
+-   Display multiday events across multiple days
 
 ---
 
@@ -43,6 +46,12 @@
 -   Created form component to use in the day modal
 -   Added styling to form
 -   Fixed bug where days would inaccurately display if first day is sunday
+
+### 02/07/2023
+
+-   Added event display for each day, clickable to open a modal
+-   Modal display includes countdown
+-   Adjusted styling
 
 ## Further details, related projects
 

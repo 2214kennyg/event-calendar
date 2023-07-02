@@ -1,28 +1,42 @@
 import styles from "./Day.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DayModal from "../DayModal/DayModal";
+import { EventCard } from "../EventCard/EventCard";
 
-export const Day = ({ dayNum, currDate }: any) => {
+export const Day = ({ dayNum, currDate, events }: any) => {
     const [openModal, setopenModal] = useState(false);
-    const openModalView = () => {
+    const openDayModal = () => {
         setopenModal(true);
     };
-    const closeModalView = () => {
+    const closeDayModal = () => {
         setopenModal(false);
     };
+
+    const [dayEvents, setDayEvents] = useState([]);
+
+    useEffect(() => {
+        const newEvents = events.filter((event: any) => {
+            return (
+                event.startDate.split("T")[0] ==
+                currDate.toISOString().split("T")[0]
+            );
+        });
+        setDayEvents(newEvents);
+    }, [events]);
 
     return dayNum !== 0 ? (
         <>
             <>
-                <div className={styles.card} onClick={openModalView}>
+                <div className={styles.card} onClick={openDayModal}>
                     {dayNum}
                 </div>
+                <div className={styles.event}>
+                    {dayEvents.map((event: any) => {
+                        return <EventCard key={event.id} event={event} />;
+                    })}
+                </div>
             </>
-            {openModal ? (
-                <DayModal onChange={closeModalView} currDate={currDate} />
-            ) : (
-                <></>
-            )}
+            {openModal ? <DayModal onChange={closeDayModal} /> : <></>}
         </>
     ) : (
         <div className={styles.card}>

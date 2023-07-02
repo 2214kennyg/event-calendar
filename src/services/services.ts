@@ -15,7 +15,6 @@ export const addNewEvent = async (postData: object) => {
     if (!response.ok) {
         throw new Error("Could not create the event");
     }
-    console.log("created");
 };
 
 export const deleteById = async (id: number) => {
