@@ -30,15 +30,17 @@ const EventModal = ({ event, onChange }: any) => {
             ></div>
             <div className={styles.card}>
                 <div className={styles.card__info}>
-                    <p>Event: {event.eventName}</p>
-                    <p>Start: {formatDate(event.startDate.split("T")[0])}</p>
-                    <p>End: {formatDate(event.endDate.split("T")[0])}</p>
-                    <p>Location: {event.location}</p>
-                    <p>Label: {event.label}</p>
-                    <p>
+                    <div>Event: {event.eventName}</div>
+                    <div>
+                        Start: {formatDate(event.startDate.split("T")[0])}
+                    </div>
+                    <div>End: {formatDate(event.endDate.split("T")[0])}</div>
+                    <div>Location: {event.location}</div>
+                    <div>Label: {event.label}</div>
+                    <div>
                         Time Left:{" "}
                         <Countdown targetDate={new Date(event.endDate)} />
-                    </p>
+                    </div>
                     <button onClick={deleteEvent}>Delete</button>
                     {error.isPresent && (
                         <p className={styles.error}>{error.message}</p>

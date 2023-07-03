@@ -20,6 +20,7 @@
 -   Adding an event to a day messes with the dimensions, can account for one event, but can't account for multiple events in a day
 -   Countdown timer loads slowly
 -   Events across multiple days only display on the start date
+-   Deleting event doesn't rerender page
 
 ---
 
@@ -52,6 +53,11 @@
 -   Added event display for each day, clickable to open a modal
 -   Modal display includes countdown
 -   Adjusted styling
+
+### 03/07/2023
+
+-   Fixed rendering of days after changing months bug
+-   Added delete button for event modal
 
 ## Further details, related projects
 

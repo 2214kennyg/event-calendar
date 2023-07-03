@@ -34,19 +34,14 @@ const Month = ({ events }: any) => {
     const setters = () => {
         setMonthString(getMonthName.monthString);
         setYear(getMonthName.currYear);
-        setBlankDayArr([...Array(getMonthName.firstDayNum - 1).fill(-1)]);
-        const daysInMonthArr = [...Array(getMonthName.daysInMonth).keys()];
-        const firstDayIndex = daysOfWeek.findIndex(
-            (day) => day === getMonthName.firstDayString
-        );
-        const shiftedDays = daysInMonthArr.map(
-            (day) => (day + firstDayIndex) % 7
-        );
+        const blankDays =
+            getMonthName.firstDayNum === 0 ? 6 : getMonthName.firstDayNum - 1;
+        setBlankDayArr([...Array(blankDays).fill(-1)]);
         setCombinedDays([
-            ...Array(getMonthName.firstDayNum - 1).fill(-1),
-            ...shiftedDays,
+            ...Array(blankDays).fill(-1),
+            ...Array(getMonthName.daysInMonth).keys(),
         ]);
-        setDayArr(daysInMonthArr);
+        setDayArr([...Array(getMonthName.daysInMonth).keys()]);
     };
 
     const onPrevMonth = () => {
