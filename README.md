@@ -14,6 +14,7 @@
 -   Opens a modal, to allow adding events to specific days
 -   Shows events for particular days, with various information displayed in modal
 -   Modal displays countdown to when the event ends
+-   Can filter events by label or location
 
 ## Known issues
 
@@ -28,7 +29,6 @@
 
 -   Highlight the current day when viewing the calendar
 -   Skip to a specific date, instead of scrolling through one by one
--   Add button to filter events by label and/or location
 -   Autofill start date in event form for current date
 -   Display multiday events across multiple days
 
@@ -58,6 +58,10 @@
 
 -   Fixed rendering of days after changing months bug
 -   Added delete button for event modal
+
+### 03/07/2023 - 2
+
+-   Added filtering by label or location, using the backend
 
 ## Further details, related projects
 

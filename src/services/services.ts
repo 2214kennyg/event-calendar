@@ -26,3 +26,27 @@ export const deleteById = async (id: number) => {
     }
     return response.json();
 };
+
+export const getEventsByLabel = async (label: string) => {
+    const response = await fetch(
+        `http://localhost:8080/events/filterLabel?label=${encodeURIComponent(
+            label
+        )}`
+    );
+    if (!response.ok) {
+        throw new Error("Label could not be found");
+    }
+    return await response.json();
+};
+
+export const getEventsByLocation = async (location: string) => {
+    const response = await fetch(
+        `http://localhost:8080/events/filterLocation?location=${encodeURIComponent(
+            location
+        )}`
+    );
+    if (!response.ok) {
+        throw new Error("Location could not be found");
+    }
+    return await response.json();
+};

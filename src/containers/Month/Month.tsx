@@ -4,6 +4,8 @@ import { getMonth } from "../../services/GetMonth";
 import styles from "./Month.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { getEventsByLabel, getEventsByLocation } from "../../services/services";
+import EventFilter from "../../components/EventFilter/EventFilter";
 
 const Month = ({ events }: any) => {
     let getMonthName = getMonth();
@@ -20,6 +22,9 @@ const Month = ({ events }: any) => {
         ...blankDayArr,
         ...dayArr,
     ]);
+    const [filteredEvents, setFilteredEvents] = useState(events);
+    const [isFiltered, setIsFiltered] = useState(false);
+    const [error, setError] = useState({ isPresent: false, message: "" });
 
     const daysOfWeek = [
         "Monday",
@@ -81,6 +86,39 @@ const Month = ({ events }: any) => {
         return { rows, cells };
     };
 
+    const fetchEventsByLabel = async (label: string) => {
+        try {
+            const filteredEvents = await getEventsByLabel(label);
+            setFilteredEvents(filteredEvents);
+            setError({ isPresent: false, message: "" });
+        } catch (e: any) {
+            setError({ isPresent: true, message: e.message });
+        }
+    };
+
+    const fetchEventsByLocation = async (location: string) => {
+        try {
+            const filteredEvents = await getEventsByLocation(location);
+            setFilteredEvents(filteredEvents);
+            setError({ isPresent: false, message: "" });
+        } catch (e: any) {
+            setError({ isPresent: true, message: e.message });
+        }
+    };
+
+    const handleFilter = (filterType: string, filterValue: string) => {
+        if (filterType === "") {
+            setFilteredEvents(events);
+            setIsFiltered(false);
+        } else if (filterType === "location") {
+            fetchEventsByLocation(filterValue);
+            setIsFiltered(true);
+        } else if (filterType === "label") {
+            fetchEventsByLabel(filterValue);
+            setIsFiltered(true);
+        }
+    };
+
     return (
         <div className={styles.cal}>
             <div className={styles.cal__header}>
@@ -94,6 +132,8 @@ const Month = ({ events }: any) => {
                     <FontAwesomeIcon icon={faArrowRight} />
                 </button>
             </div>
+            <EventFilter onFilter={handleFilter} />
+            {error.isPresent && <p className={styles.error}>{error.message}</p>}
             <table>
                 <thead>
                     <tr>
@@ -126,7 +166,11 @@ const Month = ({ events }: any) => {
                                                         dayNum + 1
                                                     )
                                                 }
-                                                events={events}
+                                                events={
+                                                    isFiltered
+                                                        ? filteredEvents
+                                                        : events
+                                                }
                                             />
                                         </td>
                                     );
